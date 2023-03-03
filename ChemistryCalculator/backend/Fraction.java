@@ -29,33 +29,39 @@ public class Fraction {
         return denominator;
     }
 
+
     public void setDenominator(int denominator) {
+        if (denominator == 0) {
+            throw new IllegalArgumentException("Denominator cannot be zero.");
+        }
         this.denominator = denominator;
+        reduce();
     }
 
     //computing the greatest common divisor.Example => (3 , 6)  == 3
-    public int getGCD(int a, int b) {
-        if (a < 0) {
-            a = -a;
-        }
-        if (b < 0) {
-            b = -b;
-        }
+    private static int getGCD(int a, int b) {
+        a = Math.abs(a);
+        b = Math.abs(b);
         while (b != 0) {
-            a %= b;
-            if (a == 0) {
-                return b;
-            }
-            b %= a;
+            int temp = b;
+            b = a % b;
+            a = temp;
         }
         return a;
     }
 
     //Example => 3/6  == 1/3
     private void reduce() {
+        if (denominator == 0) {
+            throw new IllegalStateException("Denominator cannot be zero.");
+        }
         int gcd = getGCD(numerator, denominator);
         numerator /= gcd;
         denominator /= gcd;
+        if (denominator < 0) {
+            numerator *= -1;
+            denominator *= -1;
+        }
     }
 
     public Fraction add(Fraction fractionTwo) {
@@ -79,6 +85,9 @@ public class Fraction {
     }
 
     public Fraction divide(Fraction fractionTwo) {
+        if (other.numerator == 0) {
+            throw new IllegalArgumentException("Cannot divide by zero.");
+        }
         int newNumerator = numerator * fractionTwo.getDenominator();
         int newDenominator = denominator * fractionTwo.numerator;
         return new Fraction(newNumerator, newDenominator);
