@@ -2,9 +2,7 @@ package ChemistryCalculator.backend;
 
 public class Concentration {
     private final Compound compound;
-    //gm unit
     private final double givenCompoundMass;
-    //ml unit for molarity || gm unit for molality
     private final double volumeOfSolution;
 
     public Concentration(Compound compound, double givenCompoundMass, double volumeOfSolution) {
@@ -13,18 +11,19 @@ public class Concentration {
         this.volumeOfSolution = volumeOfSolution;
     }
 
-
     public double getMolarity() {
-        return (1000 * givenCompoundMass) / (compound.getMolarMass() * volumeOfSolution);
+        double molarMass = compound.getMolarMass();
+        return (1000 * givenCompoundMass) / (molarMass * volumeOfSolution);
     }
-
 
     public double getMolality() {
         double massOfSolvent = volumeOfSolution - givenCompoundMass;
-        return (givenCompoundMass * 1000) / (compound.getMolarMass() * massOfSolvent);
+        double molarMass = compound.getMolarMass();
+        return (givenCompoundMass * 1000) / (molarMass * massOfSolvent);
     }
 
     public double geNormality(double equivalentNumber) {
-        return getMolarity() * equivalentNumber;
+        double molarity = getMolarity();
+        return molarity * equivalentNumber;
     }
 }
