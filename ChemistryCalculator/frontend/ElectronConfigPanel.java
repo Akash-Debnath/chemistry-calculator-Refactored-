@@ -162,6 +162,31 @@ public class ElectronConfigPanel extends JPanel {
         //Main panel layout
         GroupLayout Layout = new GroupLayout(this);
         this.setLayout(Layout);
+        extracted3(Layout);
+        extracted4(Layout);
+    }
+
+private void extracted4(GroupLayout Layout) {
+        Layout.setVerticalGroup(
+                Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addGroup(Layout.createSequentialGroup()
+                                .addGap(31, 31, 31)
+                                .addComponent(errorMessagePanel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addGroup(Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                                        .addComponent(labelForNumOrSymbolTextfield, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(numOrSymbolTextfield, GroupLayout.PREFERRED_SIZE, 43, GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                        .addComponent(getElectronConfigButton, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(clearButton, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 210, Short.MAX_VALUE)
+                                .addComponent(ansPanel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap())
+        );
+}
+
+private void extracted3(GroupLayout Layout) {
         Layout.setHorizontalGroup(
                 Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addGroup(Layout.createSequentialGroup()
@@ -184,24 +209,7 @@ public class ElectronConfigPanel extends JPanel {
                                                 .addGap(0, 83, Short.MAX_VALUE)))
                                 .addContainerGap())
         );
-        Layout.setVerticalGroup(
-                Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addGroup(Layout.createSequentialGroup()
-                                .addGap(31, 31, 31)
-                                .addComponent(errorMessagePanel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addGroup(Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                        .addComponent(labelForNumOrSymbolTextfield, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(numOrSymbolTextfield, GroupLayout.PREFERRED_SIZE, 43, GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                        .addComponent(getElectronConfigButton, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(clearButton, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 210, Short.MAX_VALUE)
-                                .addComponent(ansPanel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap())
-        );
-    }
+}
 
     private void getElectronConfigButtonActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
@@ -210,18 +218,11 @@ public class ElectronConfigPanel extends JPanel {
         if (!atom_text.isEmpty()) {
             Atom atom;
             try {
-                int atomicNumber = Integer.parseInt(atom_text);
+                final int atomicNumber = Integer.parseInt(atom_text);
                 try {
                     atom = Atom.getInstance(atomicNumber);
 
-                    atomicNameAnsLabel.setText(atom.getName());
-                    massOfAtomAnsLabel.setText(String.valueOf(atom.getAtomicMass()));
-                    labelForAtomicNumAns.setText("Atomic symbol :");
-                    atomicNumAnsLabel.setText(String.valueOf(atom.getSymbol()));
-                    ElectronConfigAnsLabel.setText(atom.getElectronConfig());
-                    ansPanel.setVisible(true);
-
-                    errorMessagePanel.setVisible(false);
+                    extracted(atom);
 
 
                 } catch (InvalidAtomException e) {
@@ -235,12 +236,7 @@ public class ElectronConfigPanel extends JPanel {
             } catch (NumberFormatException e) {
                 try {
                     atom = Atom.getInstance(atom_text);
-                    atomicNameAnsLabel.setText(atom.getName());
-                    massOfAtomAnsLabel.setText(String.valueOf(atom.getAtomicMass()));
-                    labelForAtomicNumAns.setText("Atomic Number :");
-                    atomicNumAnsLabel.setText(String.valueOf(atom.getAtomicNumber()));
-                    ElectronConfigAnsLabel.setText(atom.getElectronConfig());
-                    ansPanel.setVisible(true);
+                    extracted2(atom);
 
                     errorMessagePanel.setVisible(false);
                 } catch (InvalidAtomException invalidAtomException) {
@@ -258,6 +254,26 @@ public class ElectronConfigPanel extends JPanel {
             ansPanel.setVisible(false);
         }
     }
+
+private void extracted2(Atom atom) {
+        atomicNameAnsLabel.setText(atom.getName());
+            massOfAtomAnsLabel.setText(String.valueOf(atom.getAtomicMass()));
+            labelForAtomicNumAns.setText("Atomic Number :");
+            atomicNumAnsLabel.setText(String.valueOf(atom.getAtomicNumber()));
+            ElectronConfigAnsLabel.setText(atom.getElectronConfig());
+            ansPanel.setVisible(true);
+}
+
+private void extracted(Atom atom) {
+        atomicNameAnsLabel.setText(atom.getName());
+            massOfAtomAnsLabel.setText(String.valueOf(atom.getAtomicMass()));
+            labelForAtomicNumAns.setText("Atomic symbol :");
+            atomicNumAnsLabel.setText(String.valueOf(atom.getSymbol()));
+            ElectronConfigAnsLabel.setText(atom.getElectronConfig());
+            ansPanel.setVisible(true);
+
+            errorMessagePanel.setVisible(false);
+}
 
 
     private void clearButtonActionPerformed(java.awt.event.ActionEvent evt) {
