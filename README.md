@@ -2,12 +2,18 @@
 
 This repository contains the SE4204 course materials. The forked project is used to perform refactoring and create SRS document from the existing project.
 Some of the documents that are created -
-- [SRS Report](https://github.com/Akash-Debnath/Software-Maintenance-Lab-Documents-/blob/main/SRS%20of%20ChemCal%20Final%20%5BID%20-%202%2C%2014%2C20%2C34%2C37%5D.pdf)
+- [Software Requirements Specification(SRS) Report](https://github.com/Akash-Debnath/Software-Maintenance-Lab-Documents-/blob/main/SRS%20of%20ChemCal%20Final%20%5BID%20-%202%2C%2014%2C20%2C34%2C37%5D.pdf)
 - [SRS Documenting Process Report](https://github.com/Akash-Debnath/Software-Maintenance-Lab-Documents-/blob/main/SRS%20Documenting%20Report%20%5BID%20-%202%2C%2014%2C20%2C34%2C37%5D%20.pdf)
 - [Refactoring Report](https://github.com/Akash-Debnath/Software-Maintenance-Lab-Documents-/blob/main/Refactoring%20Report%20ChemistryCalculator%20%5BID%20-%202%2C%2014%2C20%2C34%2C37%5D.pdf)
 
 
 
+###Team - AKASH
+* Akash Chandra Debnath
+* Nadim Bhuiya
+* Shahriar Priyo
+* Emran Hossain
+* Azad Hossain
 
 
 
