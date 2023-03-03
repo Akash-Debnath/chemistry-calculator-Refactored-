@@ -169,14 +169,7 @@ public class TitrationPanel extends JPanel {
     private void setComponentLayout() {
 
         //setting notification Panel Layout
-        GroupLayout notificationPanelLayout = new GroupLayout(notificationPanel);
-        notificationPanel.setLayout(notificationPanelLayout);
-        notificationPanelLayout.setHorizontalGroup(
-                notificationPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addGroup(GroupLayout.Alignment.TRAILING, notificationPanelLayout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(notificationLabel, GroupLayout.PREFERRED_SIZE, 654, GroupLayout.PREFERRED_SIZE))
-        );
+        GroupLayout notificationPanelLayout = extracted();
         notificationPanelLayout.setVerticalGroup(
                 notificationPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addGroup(notificationPanelLayout.createSequentialGroup()
@@ -186,7 +179,7 @@ public class TitrationPanel extends JPanel {
 
 
         //main Layout
-        GroupLayout Layout = new GroupLayout(this);
+        final GroupLayout Layout = new GroupLayout(this);
         this.setLayout(Layout);
         Layout.setHorizontalGroup(
                 Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
@@ -263,6 +256,21 @@ public class TitrationPanel extends JPanel {
         );
     }
 
+    private GroupLayout extracted() {
+        GroupLayout notificationPanelLayout = new GroupLayout(notificationPanel);
+        notificationPanel.setLayout(notificationPanelLayout);
+        notificationPanelLayout.setHorizontalGroup(
+                notificationPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addGroup(GroupLayout.Alignment.TRAILING, notificationPanelLayout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(notificationLabel, GroupLayout.PREFERRED_SIZE, 654, GroupLayout.PREFERRED_SIZE))
+        );
+        return notificationPanelLayout;
+    }
+
+    /**
+     * @param evt
+     */
     private void getUnknownValueButtonActionPerformed(ActionEvent evt) {
         // TODO add your handling code here:
       String molarityOfAcid = null, molarityOfBase = null, volumeOfAcid = null, volumeOfBase = null;
@@ -416,14 +424,18 @@ public class TitrationPanel extends JPanel {
 
     private void clearButtonActionPerformed(ActionEvent evt) {
         // TODO add your handling code here:
+        extracted2();
+
+        notificationPanel.setVisible(false);
+    }
+
+    private void extracted2() {
         acidMolarityTextfield.setText(null);
         baseMolarityTextfield.setText(null);
         acidVolumeTextfield.setText(null);
         baseVolumeTextfield.setText(null);
         acidMoleTextfield.setText(null);
         baseMoleTextfield.setText(null);
-
-        notificationPanel.setVisible(false);
     }
 
     String acidMolarityPreviousItem = null;
@@ -536,6 +548,8 @@ public class TitrationPanel extends JPanel {
 
     String baseVolumePreviousItem = null;
     String baseVolumeNewItem = null;
+    public static final GroupLayout ansPanelLayout = new GroupLayout(ansPanel);
+    public static final GroupLayout errorMessagePanelLayout = new GroupLayout(errorMessagePanel);
 
     private void baseVolumeUnitComboBoxItemStateChanged(ItemEvent evt) {
         // TODO add your handling code here:
