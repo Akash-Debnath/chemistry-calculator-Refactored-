@@ -8,8 +8,9 @@ Some of the documents that are created -
 
 
 
-<hr>
-### Team - AKASH
+
+
+## Team - AKASH
 * Akash Chandra Debnath
 * Nadim Bhuiya
 * Shahriar Priyo
