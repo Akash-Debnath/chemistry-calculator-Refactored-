@@ -40,11 +40,7 @@ public class CompoundManager {
         this.compoundDecipher(compound.getCompound(), index, side);
     }
 
-
-    //this function  breakdown the complex compounds into simple compound(segment).
-    //Example = > Cu(SO4)2*5H2O  = Cu, SO4, H2O
     private void compoundDecipher(String compound, int index, int side) {
-        //separating out the parenthesis, *,  from the rest of the compound
         String[] segments = compound.split("(?<=\\)([0-9]{0,100}))(?=[A-Z])|(?=\\([A-Za-z0-9]*\\)[0-9]*)|(?=\\*)");
 
         for (String segment : segments) {
@@ -52,16 +48,11 @@ public class CompoundManager {
             String eachCompound;
             if (segment.startsWith("(")) {
                 String[] splitedSegment = segment.split("\\)(?=\\d*)");
-                //compoend is in splitedSegment[0] . splitedSegment[1] has the value of  multiplier.
                 multiplier = Integer.parseInt(splitedSegment[1]);
-                //from splitedSegment[0], taking substring(1) because it startsWith "("
                 eachCompound = splitedSegment[0].substring(1);
             } else {
                 if (segment.startsWith("*")) {
                     String[] splitedSegment = segment.split("\\*");
-                    //splitedSegment[0] is always empty. splitedSegment[1] has the value of compound with multiplier.
-                    //Now separating multiplier and compound
-                    //multiplier is in index 0, compound in 1
                     String[] compoundWithMultiplier = splitedSegment[1].split("(?<=^[0-9]{0,100})(?=[A-Z])");
                     multiplier = Integer.parseInt(compoundWithMultiplier[0]);
                     eachCompound = compoundWithMultiplier[1];
@@ -72,8 +63,6 @@ public class CompoundManager {
                 }
             }
             findAtoms(eachCompound, index, multiplier, side);
-            //System.out.println("before finding element");
-            //System.out.println(eachCompound + "  " + index + "  " + multiplier + "  " + side);
         }
     }
 
@@ -94,19 +83,6 @@ public class CompoundManager {
         }
     }
 
-    //populating elementList and elementMatrix. Example --
-    //for an equation =>
-    //Reactants = Ca(OH)2 + H3PO4
-    //Products = Ca3(PO4)2 + H2O
-    //elementList => {P=3, H=2, Ca=0, O=1}
-    //elementMatrix => [[1, 2, 2, 0], [0, 4, 3, 1], [-3, -8, 0, -2], [0, -1, -2, 0]]
-    //Explanation =>
-    //                      Ca,  O,  H,  P
-    //         Ca(OH)2    =  1,  2,  2,  0
-    //         H3PO4      =  0,  4,  3,  1
-    //         Ca3(PO4)2  = -3, -8,  0, -2
-    //         H2O        =  0, -1, -2,  0
-    //NullSpace of this matrix gives the corresponding balanced Coefficient
     private void addToMatrix(String atoms, int index, int multiplier, int side) {
 
         if (index == elementMatrix.size()) {
