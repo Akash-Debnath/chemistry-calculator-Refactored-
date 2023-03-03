@@ -11,7 +11,28 @@ import java.awt.event.ActionEvent;
 import java.util.Arrays;
 
 public class MolarMassPanel extends JPanel {
-    private static final Font SEGOE_UI = new Font("Segoe UI", 1,  14);
+    private final class DefaultTableModelExtension extends DefaultTableModel {
+                Class[] types = new Class[]{
+                            String.class, String.class
+                    };
+                boolean[] canEdit = new boolean[]{
+                            false, false
+                    };
+
+                private DefaultTableModelExtension(Object[][] data, Object[] columnNames) {
+                        super(data, columnNames);
+                }
+
+                public Class getColumnClass(int columnIndex) {
+                        return types[columnIndex];
+                    }
+
+                public boolean isCellEditable(int rowIndex, int columnIndex) {
+                        return canEdit[columnIndex];
+                    }
+        }
+
+private static final Font SEGOE_UI = new Font("Segoe UI", 1,  14);
     private static final Color MAIN_COLOR = new Color(64, 43,  100);
     private static final Color GRAY = new Color(204, 204,  204);
 
@@ -52,25 +73,7 @@ public class MolarMassPanel extends JPanel {
         ansTable.setBorder(BorderFactory.createEtchedBorder());
         ansTable.setFont(SEGOE_UI);
         ansTable.setForeground(GRAY);
-        dataTableModel = new DefaultTableModel(
-                new Object[][]{},
-                new String[]{}
-        ) {
-            Class[] types = new Class[]{
-                    String.class, String.class
-            };
-            boolean[] canEdit = new boolean[]{
-                    false, false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types[columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit[columnIndex];
-            }
-        };
+        dataTableModel = new DefaultTableModelExtension(new Object[][]{}, new String[]{});
         ansTable.setModel(dataTableModel);
         ansTable.setRowHeight(50);
         ansTableScrollPane.setViewportView(ansTable);
