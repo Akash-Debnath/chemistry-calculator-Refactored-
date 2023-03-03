@@ -66,6 +66,10 @@ public class Home extends JFrame {
     private void buildBodyPanels() {
         //adding all body panels to a single panel (bodyPanel)
 
+        extracted2();
+    }
+
+private void extracted2() {
         bodyPanel.setLayout(new CardLayout());
 
         bodyPanel.add(equationBalancePanel);
@@ -75,11 +79,18 @@ public class Home extends JFrame {
         bodyPanel.add(titrationPanel);
         bodyPanel.add(needHelpPanel);
         bodyPanel.add(percentOfCompletionPanel);
-    }
+}
 
     private void buildSidebar() {
         // creating sidebar. Every single body panel should have a single menu bar for navigation. Don't creates duplicates.
 
+        extracted();
+
+
+        sidebarPanel.build();
+    }
+
+private void extracted() {
         sidebarPanel.addMenu(
                 "Equation Balance",
                 new ImageIcon(getClass().getResource("/ChemistryCalculator/icons/icons8_scales_25px_1.png")),
@@ -115,10 +126,7 @@ public class Home extends JFrame {
                 new ImageIcon(getClass().getResource("/ChemistryCalculator/icons/icons8_inquiry_25px_1.png")),
                 needHelpPanel
         );
-
-
-        sidebarPanel.build();
-    }
+}
 
     private void setFrameProperty() {
         //attaching background Panel to the main ContentPane.
