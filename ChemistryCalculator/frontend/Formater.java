@@ -14,7 +14,7 @@ public class Formater {
 
         StringBuilder output = new StringBuilder();
         int i = 0;
-        while (matcher.find()) {
+        while (!matcher.find()) {
             String group = matcher.group();
             if (group.length() == 1) {
                 int number = Integer.parseInt(group);
